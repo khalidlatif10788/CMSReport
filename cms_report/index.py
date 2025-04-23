@@ -92,77 +92,56 @@ def main():
             elif row.find_all('td')[0].get_text(strip=True) in must_businessSchool_departments:
                 faculty_must_business[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
                 faculties["Faculty of MBS"]=faculty_must_business
-        print(faculties)
-        create_outstanding_dues_report(faculties, "outstanding_dues_report.xlsx")
+        
+        create_outstanding_dues_report(faculties, "outstanding_dues_report.csv")
+        print("CSV file created successfully! Open it in Excel.")
             
 def create_outstanding_dues_report(data_dict, output_filename):
-    # Create a new workbook and select the active worksheet
-    wb = Workbook()
-    ws = wb.active
-    ws.title = "Sheet1"
+    # Create CSV content
+    csv_lines = []
     
-    # Set up the header rows
-    ws.merge_cells('B1:F1')
-    ws['B1'] = "Outstanding Dues Spring Semester 2025 As Per Student Fee Management Record"
-    ws['B1'].font = Font(bold=True)
-    ws['B1'].alignment = Alignment(horizontal='center')
+    # Add title
+    csv_lines.append(',"Outstanding Dues Spring Semester 2025 As Per Student Fee Management Record",,,,,')
     
-    # Column headers
-    headers = [
-        "Sr. No.",
-        "Faculty",
-        "Department",
-        "Collected Dues",
-        "Outstanding Dues",
-        "No. Of Student Outstanding Dues"
-    ]
-    ws.append(headers)
+    # Add headers
+    csv_lines.append('Sr. No.,Faculty,Department,Collected Dues,Outstanding Dues,No. Of Student Outstanding Dues')
     
-    # Make headers bold
-    for cell in ws[2]:  # Headers are in row 2
-        cell.font = Font(bold=True)
-    
-    # Populate the data
+    # Populate data
     sr_no = 1
-    first_data_row = 3  # Data starts at row 3 (after headers in row 2)
-    
     for faculty, departments in data_dict.items():
-        # For the first department in each faculty, write the faculty name
         first_dept = True
         
         for dept, values in departments.items():
+            faculty_name = faculty if first_dept else ""
             row = [
-                sr_no,
-                faculty if first_dept else "",  # Only show faculty name once
-                dept,
+                str(sr_no),
+                f'"{faculty_name}"',  # Quote faculty name to handle commas
+                f'"{dept}"',          # Quote department names to handle commas
                 values.get('Fee Collected', ''),
                 values.get('Outstanding Dues', ''),
                 values.get('No. of Students, Outstanding Dues', '')
             ]
-            ws.append(row)
+            csv_lines.append(','.join(row))
             sr_no += 1
             first_dept = False
     
-    # Calculate the last data row (header is row 2, first data row is 3)
-    last_data_row = 2 + sr_no  # 2 (header) + number of data rows
+    # Add totals row
+    last_data_row = sr_no + 1  # +1 for header row
+    csv_lines.append(f'"Total outstanding Amount",,,,=SUM(E3:E{last_data_row}),=SUM(F3:F{last_data_row})')
     
-    # Add the totals row (corrected version)
-    total_row_num = last_data_row + 1
-    ws.append([
-        "Total outstanding Amount",
-        "",
-        "",
-        "",
-        f"=SUM(E3:E{last_data_row})",
-        f"=SUM(F3:F{last_data_row})"
-    ])
-    
-    # Make totals row bold
-    for cell in ws[total_row_num]:
-        cell.font = Font(bold=True)
-    
-    # Save the workbook
-    wb.save(output_filename)
+    # Write to file
+    with open(output_filename, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(csv_lines))
+
+# Your data (same as before)
+data = {
+    'Faculty of Health and Medical Sciences': {
+        # ... (your data here) ...
+    },
+    # ... (rest of your data) ...
+}
+
+# Create the report
 
 
 if __name__ == "__main__":
