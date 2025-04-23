@@ -97,7 +97,7 @@ def main():
         print("CSV file created successfully! Open it in Excel.")
             
 def create_outstanding_dues_report(data_dict, output_filename):
-    # Create CSV content
+    
     csv_lines = []
     
     # Add title
@@ -106,42 +106,40 @@ def create_outstanding_dues_report(data_dict, output_filename):
     # Add headers
     csv_lines.append('Sr. No.,Faculty,Department,Collected Dues,Outstanding Dues,No. Of Student Outstanding Dues')
     
-    # Populate data
+   
     sr_no = 1
     for faculty, departments in data_dict.items():
         first_dept = True
         
         for dept, values in departments.items():
             faculty_name = faculty if first_dept else ""
+            
+            
+            collected = values.get('Fee Collected', '0').replace(',', '')
+            outstanding = values.get('Outstanding Dues', '0').replace(',', '')
+            students = values.get('No. of Students, Outstanding Dues', '0').replace(',', '')
+            
             row = [
                 str(sr_no),
-                f'"{faculty_name}"',  # Quote faculty name to handle commas
-                f'"{dept}"',          # Quote department names to handle commas
-                values.get('Fee Collected', ''),
-                values.get('Outstanding Dues', ''),
-                values.get('No. of Students, Outstanding Dues', '')
+                f'"{faculty_name}"',
+                f'"{dept}"',
+                collected,
+                outstanding,
+                students
             ]
             csv_lines.append(','.join(row))
             sr_no += 1
             first_dept = False
     
-    # Add totals row
+    
     last_data_row = sr_no + 1  # +1 for header row
     csv_lines.append(f'"Total outstanding Amount",,,,=SUM(E3:E{last_data_row}),=SUM(F3:F{last_data_row})')
     
-    # Write to file
+    
     with open(output_filename, 'w', encoding='utf-8') as f:
         f.write('\n'.join(csv_lines))
 
-# Your data (same as before)
-data = {
-    'Faculty of Health and Medical Sciences': {
-        # ... (your data here) ...
-    },
-    # ... (rest of your data) ...
-}
 
-# Create the report
 
 
 if __name__ == "__main__":
