@@ -119,11 +119,13 @@ def create_outstanding_dues_report(data_dict, output_filename):
     ws.append(headers)
     
     # Make headers bold
-    for cell in ws[2]:
+    for cell in ws[2]:  # Headers are in row 2
         cell.font = Font(bold=True)
     
     # Populate the data
     sr_no = 1
+    first_data_row = 3  # Data starts at row 3 (after headers in row 2)
+    
     for faculty, departments in data_dict.items():
         # For the first department in each faculty, write the faculty name
         first_dept = True
@@ -141,18 +143,22 @@ def create_outstanding_dues_report(data_dict, output_filename):
             sr_no += 1
             first_dept = False
     
-    # Add the totals row
+    # Calculate the last data row (header is row 2, first data row is 3)
+    last_data_row = 2 + sr_no  # 2 (header) + number of data rows
+    
+    # Add the totals row (corrected version)
+    total_row_num = last_data_row + 1
     ws.append([
         "Total outstanding Amount",
         "",
         "",
         "",
-        f"=SUM(E3:E{sr_no})",
-        f"=SUM(F3:F{sr_no})"
+        f"=SUM(E3:E{last_data_row})",
+        f"=SUM(F3:F{last_data_row})"
     ])
     
     # Make totals row bold
-    for cell in ws[sr_no + 1]:  # +1 because rows are 1-indexed
+    for cell in ws[total_row_num]:
         cell.font = Font(bold=True)
     
     # Save the workbook
