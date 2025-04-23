@@ -61,8 +61,8 @@ def main():
         headers = [th.get_text(strip=True) for th in data_table.find('tr').find_all('td')]
         print(headers)
         rows = []
-        science_department=["Biotechnology","Chemistry"]
-        engineering_department=["Civil Engineering","Computer Systems Engineering"]
+        science_department=["Biotechnology","Chemistry","Computer Sciences & Information Technology","Forestry","Mathematics","Physics","Physics (Pallandri Campus)","Statistics","Zoology"]
+        engineering_department=["Civil Engineering","Civil Engineering Technology","Computer Systems Engineering","Electrical Engineering","Electrical Engineering Technology","Mirpur Institute of Technology","Mechanical Engineering","Software Engineering"]
         
         faculties={}
         
@@ -74,10 +74,10 @@ def main():
             
             # print(f" Department Name: {row.find_all('td')[0]} Fee Collected: {row.find_all('td')[4]}")
             if row.find_all('td')[0].get_text(strip=True) in science_department:
-                faculty_sceneces_departments[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True)}
-                faculties["Sciences"]=faculty_sceneces_departments
+                faculty_sceneces_departments[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
+                faculties["Faculty of Natural and Applied Sciences"]=faculty_sceneces_departments
             elif row.find_all('td')[0].get_text(strip=True) in engineering_department:
-                faculty_Engineering_departments[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True)}
+                faculty_Engineering_departments[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
                 faculties["Engineering"]=faculty_Engineering_departments
         print(faculties)
             
