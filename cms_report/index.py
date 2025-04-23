@@ -2,6 +2,10 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+#Convert Excel work
+from openpyxl import Workbook
+from openpyxl.styles import Font, Alignment
+
 
 LOGIN_URL = "https://cms.must.edu.pk/sfms/checklogin.asp"
 REPORT_URL = "https://cms.must.edu.pk/sfms/Reports/SemesterFeeCategory/Fee_Summary_Report.asp"
@@ -66,7 +70,7 @@ def main():
         
         faculties={}
         faculty_sciences={}
-        faculty_Engineering_departments={}
+        faculty_Engineering={}
         faculty_social_sciences={}
         faculty_health_medical={}
         faculty_must_business={}
@@ -74,11 +78,11 @@ def main():
         for row in data_table.find_all('tr')[1:]:  # Skip header row
             
             if row.find_all('td')[0].get_text(strip=True) in science_departments:
-                faculty_sceneces_departments[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
-                faculties["Faculty of Natural and Applied Sciences"]=faculty_sceneces_departments
+                faculty_sciences[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
+                faculties["Faculty of Natural and Applied Sciences"]=faculty_sciences
             elif row.find_all('td')[0].get_text(strip=True) in engineering_departments:
-                faculty_Engineering_departments[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
-                faculties["Faculty of Engineering and Technology"]=faculty_Engineering_departments
+                faculty_Engineering[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
+                faculties["Faculty of Engineering and Technology"]=faculty_Engineering
             elif row.find_all('td')[0].get_text(strip=True) in social_sciences_departments:
                 faculty_social_sciences[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
                 faculties["Faculty of Social Sciences and Humanities"]=faculty_social_sciences
@@ -89,8 +93,71 @@ def main():
                 faculty_must_business[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
                 faculties["Faculty of MBS"]=faculty_must_business
         print(faculties)
+        create_outstanding_dues_report(faculties, "outstanding_dues_report.xlsx")
             
-       
+def create_outstanding_dues_report(data_dict, output_filename):
+    # Create a new workbook and select the active worksheet
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Sheet1"
+    
+    # Set up the header rows
+    ws.merge_cells('B1:F1')
+    ws['B1'] = "Outstanding Dues Spring Semester 2025 As Per Student Fee Management Record"
+    ws['B1'].font = Font(bold=True)
+    ws['B1'].alignment = Alignment(horizontal='center')
+    
+    # Column headers
+    headers = [
+        "Sr. No.",
+        "Faculty",
+        "Department",
+        "Collected Dues",
+        "Outstanding Dues",
+        "No. Of Student Outstanding Dues"
+    ]
+    ws.append(headers)
+    
+    # Make headers bold
+    for cell in ws[2]:
+        cell.font = Font(bold=True)
+    
+    # Populate the data
+    sr_no = 1
+    for faculty, departments in data_dict.items():
+        # For the first department in each faculty, write the faculty name
+        first_dept = True
+        
+        for dept, values in departments.items():
+            row = [
+                sr_no,
+                faculty if first_dept else "",  # Only show faculty name once
+                dept,
+                values.get('Fee Collected', ''),
+                values.get('Outstanding Dues', ''),
+                values.get('No. of Students, Outstanding Dues', '')
+            ]
+            ws.append(row)
+            sr_no += 1
+            first_dept = False
+    
+    # Add the totals row
+    ws.append([
+        "Total outstanding Amount",
+        "",
+        "",
+        "",
+        f"=SUM(E3:E{sr_no})",
+        f"=SUM(F3:F{sr_no})"
+    ])
+    
+    # Make totals row bold
+    for cell in ws[sr_no + 1]:  # +1 because rows are 1-indexed
+        cell.font = Font(bold=True)
+    
+    # Save the workbook
+    wb.save(output_filename)
+
 
 if __name__ == "__main__":
     main()
