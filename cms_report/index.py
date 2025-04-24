@@ -3,8 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 #Convert Excel work
-from openpyxl import Workbook
-from openpyxl.styles import Font, Alignment
+# from openpyxl import Workbook
+# from openpyxl.styles import Font, Alignment
 
 
 LOGIN_URL = "https://cms.must.edu.pk/sfms/checklogin.asp"
@@ -13,7 +13,8 @@ CREDENTIALS = {
     "username": "FEE",          
     "password": "Eef@tomust"    
 }
-SEMESTER_VALUE = "90-Spring 2025"  
+# "90-Spring 2025"
+SEMESTER_VALUE = "87-FALL 2024"   
 SCHEME_VALUE = "1"               
 
 def main():
@@ -93,7 +94,7 @@ def main():
                 faculty_must_business[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
                 faculties["Faculty of MBS"]=faculty_must_business
         
-        create_outstanding_dues_report(faculties, "outstanding_dues_report.csv")
+        create_outstanding_dues_report(faculties, "outstanding_dues_reportFall24.csv")
         print("CSV file created successfully! Open it in Excel.")
             
 def create_outstanding_dues_report(data_dict, output_filename):
