@@ -1,0 +1,37 @@
+,"Outstanding Dues Spring Semester 2025 As Per Student Fee Management Record",,,,,
+Sr. No.,Faculty,Department,Collected Dues,Outstanding Dues,No. Of Student Outstanding Dues
+1,"Faculty of Health and Medical Sciences","Allied Health Sciences",11202312,2725438,60
+2,"","Human Nutrition & Dietetics",8208989,665515,17
+3,"","Microbiology",3038110,496410,14
+4,"","Pharmacy",16326939,2201955,30
+5,"","Physiotherapy",18250684,2356085,29
+6,"Faculty of Natural and Applied Sciences","Biotechnology",11042862,1232975,31
+7,"","Chemistry",9580232,1981146,40
+8,"","Computer Sciences & Information Technology",24329456,4187352,102
+9,"","Forestry",585680,294760,8
+10,"","Mathematics",5657544,2200789,56
+11,"","Physics",6208110,1862475,46
+12,"","Physics (Pallandri Campus)",0,75120,2
+13,"","Statistics",1380770,106235,3
+14,"","Zoology",9651877,1106640,27
+15,"Faculty of Engineering and Technology","Civil Engineering",13710429,6022915,95
+16,"","Civil Engineering Technology",2728325,1499130,35
+17,"","Computer Systems Engineering",11615255,5654333,111
+18,"","Electrical Engineering",11618680,6661725,122
+19,"","Electrical Engineering Technology",956040,1279475,28
+20,"","Mechanical Engineering",10961907,4980085,87
+21,"","Mirpur Institute of Technology",7425150,2220280,51
+22,"","Software Engineering",12486235,5725823,104
+23,"Faculty of Social Sciences and Humanities","Education",11500467,2278830,83
+24,"","Education (Pallandri Campus)",0,142590,5
+25,"","English",15116355,14319245,404
+26,"","Home Economics",2949620,397930,14
+27,"","Institute of Islamic Studies",8132007,2125538,55
+28,"","International Relations",6464873,2602615,76
+29,"","International Relations (Pallandri Campus)",0,36020,1
+30,"","Law",11354460,4293495,119
+31,"","Mass Communication",2334870,781560,23
+32,"","Sociology",2255100,618210,18
+33,"","Tourism and Hospitality",208620,36020,1
+34,"Faculty of MBS","MUST business School",23648071,5357420,127
+"Total outstanding Amount",,,,=SUM(E3:E36),=SUM(F3:F36)

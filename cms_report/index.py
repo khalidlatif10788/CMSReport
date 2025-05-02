@@ -14,7 +14,8 @@ CREDENTIALS = {
     "password": "Eef@tomust"    
 }
 # "90-Spring 2025"
-SEMESTER_VALUE = "87-FALL 2024"   
+# "87-FALL 2024"
+SEMESTER_VALUE = "90-Spring 2025"   
 SCHEME_VALUE = "1"               
 
 def main():
@@ -94,7 +95,7 @@ def main():
                 faculty_must_business[row.find_all('td')[0].get_text(strip=True)]={headers[4]:row.find_all('td')[4].get_text(strip=True),headers[11]:row.find_all('td')[11].get_text(strip=True),headers[12]:row.find_all('td')[12].get_text(strip=True)}
                 faculties["Faculty of MBS"]=faculty_must_business
         
-        create_outstanding_dues_report(faculties, "outstanding_dues_reportFall24.csv")
+        create_outstanding_dues_report(faculties, "outstanding_dues_report_Spring25.csv")
         print("CSV file created successfully! Open it in Excel.")
             
 def create_outstanding_dues_report(data_dict, output_filename):
