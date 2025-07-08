@@ -1,37 +1,37 @@
 ,"Outstanding Dues Spring Semester 2025 As Per Student Fee Management Record",,,,,
 Sr. No.,Faculty,Department,Collected Dues,Outstanding Dues,No. Of Student Outstanding Dues
-1,"Faculty of Health and Medical Sciences","Allied Health Sciences",11869626,2204240,48
+1,"Faculty of Health and Medical Sciences","Allied Health Sciences",12184886,1888980,43
 2,"","Human Nutrition & Dietetics",8286834,436790,12
-3,"","Microbiology",3077150,294670,8
-4,"","Pharmacy",17207024,1189520,16
-5,"","Physiotherapy",19259404,826550,10
-6,"Faculty of Natural and Applied Sciences","Biotechnology",11405862,946475,24
-7,"","Chemistry",10068757,1201660,23
-8,"","Computer Sciences & Information Technology",25699561,2834588,70
+3,"","Microbiology",3152955,218865,6
+4,"","Pharmacy",17274974,1121570,15
+5,"","Physiotherapy",19340219,745735,9
+6,"Faculty of Natural and Applied Sciences","Biotechnology",11482282,870055,22
+7,"","Chemistry",10635982,634435,12
+8,"","Computer Sciences & Information Technology",25867151,2666998,66
 9,"","Forestry",664370,236070,6
-10,"","Mathematics",5924044,2018789,51
-11,"","Physics",6409125,1753790,42
+10,"","Mathematics",6545834,1396999,38
+11,"","Physics",7302355,860560,23
 12,"","Physics (Pallandri Campus)",0,80120,2
 13,"","Statistics",1420115,74390,2
-14,"","Zoology",10125877,725420,19
-15,"Faculty of Engineering and Technology","Civil Engineering",14701174,6136240,87
-16,"","Civil Engineering Technology",3447675,904940,20
-17,"","Computer Systems Engineering",12453855,4901733,96
-18,"","Electrical Engineering",13367695,5071210,89
+14,"","Zoology",10250042,601255,16
+15,"Faculty of Engineering and Technology","Civil Engineering",15301344,5536070,77
+16,"","Civil Engineering Technology",3490675,861940,19
+17,"","Computer Systems Engineering",12713935,4641653,91
+18,"","Electrical Engineering",13883570,4555335,79
 19,"","Electrical Engineering Technology",520240,846210,17
-20,"","Mechanical Engineering",11985322,4068170,73
-21,"","Mirpur Institute of Technology",8660550,2002980,43
-22,"","Software Engineering",13511315,4553543,85
+20,"","Mechanical Engineering",12521157,3532335,65
+21,"","Mirpur Institute of Technology",8793550,1869980,40
+22,"","Software Engineering",13980450,4084408,78
 23,"Faculty of Social Sciences and Humanities","Education",11780742,1968425,72
 24,"","Education (Pallandri Campus)",0,150090,5
-25,"","English",10461740,13554805,369
+25,"","English",10641860,13374685,364
 26,"","Home Economics",3074120,183020,6
-27,"","Institute of Islamic Studies",8808647,1282850,29
-28,"","International Relations",7038733,1866350,52
+27,"","Institute of Islamic Studies",9115303,886401,22
+28,"","International Relations",7178188,1726895,48
 29,"","International Relations (Pallandri Campus)",0,38520,1
-30,"","Law",12946830,2496835,65
-31,"","Mass Communication",2520795,537500,15
-32,"","Sociology",2327665,497080,14
+30,"","Law",13121005,2322660,60
+31,"","Mass Communication",2554840,503455,14
+32,"","Sociology",2404180,420565,12
 33,"","Tourism and Hospitality",208620,38520,1
-34,"Faculty of MBS","MUST business School",24687886,4522147,101
+34,"Faculty of MBS","MUST business School",25076914,4133119,93
 "Total outstanding Amount",,,,=SUM(E3:E36),=SUM(F3:F36)
